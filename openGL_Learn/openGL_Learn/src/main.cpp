@@ -44,6 +44,7 @@ int main()
         return -1;
     }
 
+    Render::getInstance()->init();
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -61,6 +62,7 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    Render::getInstance()->clean();
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------

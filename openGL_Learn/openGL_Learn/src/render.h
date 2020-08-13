@@ -11,8 +11,15 @@ public:
 
 	static Render* getInstance();
 
+	void init();
 	void draw();
+	void clean();
 	
 private:
+
+	unsigned int vao;
+	unsigned int vbo;
+	unsigned int ebo;
+	unsigned int shaderProgram;
 
 };
