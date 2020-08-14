@@ -27,9 +27,15 @@
     <ClCompile Include="src\render.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\shader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

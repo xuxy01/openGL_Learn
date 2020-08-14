@@ -38,10 +38,10 @@ Render::~Render()
 void Render::init()
 {
 	float vertices[] = {
-		 0.5f,  0.5f, 0.0f,  // top right
-		 0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
+		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // top right
+		 0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f,  // bottom right
+		-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f,  // bottom left
+		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f   // top left 
 	};
 
 	unsigned int indices[] = {
@@ -49,67 +49,8 @@ void Render::init()
 		1, 2, 3   // second Triangle
 	};
 
-	const char* VERTEX_SHADER = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
 
-	const char* FRAGMENT_SHADER = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\n\0";
-
-
-
-	unsigned int vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &VERTEX_SHADER, NULL);
-	glCompileShader(vertexShader);
-
-	int ret;
-	char log[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &ret);
-	if (!ret)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, log);
-		std::cout << "vertexShader Error:" << log << std::endl;
-
-		return;
-	}
-
-	unsigned int fragShader;
-	fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragShader, 1, &FRAGMENT_SHADER, NULL);
-	glCompileShader(fragShader);
-
-	glGetShaderiv(fragShader, GL_COMPILE_STATUS, &ret);
-	if (!ret)
-	{
-		glGetShaderInfoLog(fragShader, 512, NULL, log);
-		std::cout << "fragmentShader Error:" << log << std::endl;
-		return;
-	}
-
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragShader);
-	glLinkProgram(shaderProgram);
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &ret);
-	if (!ret)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, log);
-		std::cout << "shaderProgram Error:" << log << std::endl;
-
-		return;
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragShader);
-
+	shaderProgram = new Shader("shader/CommonVertexShader.hlsl", "shader/CommonFragmentShader.hlsl");
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -118,8 +59,10 @@ void Render::init()
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	glGenBuffers(1, &ebo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
@@ -136,12 +79,15 @@ void Render::draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glBindVertexArray(vao);
-	glUseProgram(shaderProgram);
+	shaderProgram->use();
+	shaderProgram->setFloat4("baseColor", 1.0f, 1.0f,0.0f,1.0f);
+	float timeValue = glfwGetTime();
+	shaderProgram->setFloat("time", timeValue);
+
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
-	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-	//glBindVertexArray(0);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 
 }
 
@@ -150,7 +96,6 @@ void Render::clean()
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
-	glDeleteProgram(shaderProgram);
 }
 
 Render* Render::getInstance()

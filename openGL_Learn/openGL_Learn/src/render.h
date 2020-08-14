@@ -3,6 +3,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "shader.h"
+
+
 class Render
 {
 public:
@@ -20,6 +23,5 @@ private:
 	unsigned int vao;
 	unsigned int vbo;
 	unsigned int ebo;
-	unsigned int shaderProgram;
-
+	Shader* shaderProgram;
 };
