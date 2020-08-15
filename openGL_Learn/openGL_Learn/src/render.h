@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "lib/std_image.h"
+
 #include "shader.h"
 
 
@@ -17,9 +19,12 @@ public:
 	void init();
 	void draw();
 	void clean();
+
+	void setTexture(const char* imagePath);
 	
 private:
 
+	unsigned int texture;
 	unsigned int vao;
 	unsigned int vbo;
 	unsigned int ebo;

@@ -1,4 +1,4 @@
 ﻿  render.cpp
 E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\shader.h(3,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\render.cpp(84,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\render.cpp(91,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
   openGL_Learn.vcxproj -> E:\github\openGL_Learn\openGL_Learn\x64\Debug\openGL_Learn.exe

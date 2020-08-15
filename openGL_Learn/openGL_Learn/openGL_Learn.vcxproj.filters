@@ -30,6 +30,9 @@
     <ClCompile Include="src\shader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\lib\std_image.cpp">
+      <Filter>源文件\lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="src\shader.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\std_image.h">
+      <Filter>源文件\lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
