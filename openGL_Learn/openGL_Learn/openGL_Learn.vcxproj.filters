@@ -33,6 +33,9 @@
     <ClCompile Include="src\lib\std_image.cpp">
       <Filter>源文件\lib</Filter>
     </ClCompile>
+    <ClCompile Include="src\node.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render.h">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="src\lib\std_image.h">
       <Filter>源文件\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\node.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
