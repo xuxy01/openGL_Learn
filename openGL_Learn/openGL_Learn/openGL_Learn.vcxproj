@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\lib\glad.c" />
     <ClCompile Include="src\lib\std_image.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -152,6 +153,8 @@
     <ClCompile Include="src\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\IComponent.h" />
     <ClInclude Include="src\lib\std_image.h" />
     <ClInclude Include="src\node.h" />
     <ClInclude Include="src\render.h" />

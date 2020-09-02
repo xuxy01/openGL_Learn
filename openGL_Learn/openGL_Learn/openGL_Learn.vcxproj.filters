@@ -36,6 +36,9 @@
     <ClCompile Include="src\node.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render.h">
@@ -48,6 +51,12 @@
       <Filter>源文件\lib</Filter>
     </ClInclude>
     <ClInclude Include="src\node.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\camera.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IComponent.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

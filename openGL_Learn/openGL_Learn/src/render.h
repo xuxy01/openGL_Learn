@@ -2,10 +2,12 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <list> 
 
 #include "lib/std_image.h"
 
 #include "shader.h"
+#include "node.h"
 
 
 class Render
@@ -18,15 +20,8 @@ public:
 
 	void init();
 	void draw();
-	void clean();
-
-	void setTexture(const char* imagePath);
 	
 private:
 
-	unsigned int texture;
-	unsigned int vao;
-	unsigned int vbo;
-	unsigned int ebo;
-	Shader* shaderProgram;
+	std::list<Node> nodes;
 };
