@@ -1,12 +1,37 @@
 #include "node.h"
 
-Node::Node()
+Node::Node() :
+	_verticesCount(0),
+	_indicesCount(0)
 {
+
 }
 
 Node::~Node()
 {
 	clean();
+}
+
+Node* Node::create() {
+	Node* node = new Node();
+	node->init();
+
+	node->_vertices[0] = V3F_C3F_T2F(glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f));
+	node->_vertices[1] = V3F_C3F_T2F(glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f));
+	node->_vertices[2] = V3F_C3F_T2F(glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f));
+	node->_vertices[3] = V3F_C3F_T2F(glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f));
+
+	return node;
+}
+
+Node* Node::create(V3F_C3F_T2F* vertices,unsigned int lenght) {
+	Node* node = new Node();
+	node->init();
+
+	for (int i = 0; i < lenght; i++)
+		node->_vertices[i] = vertices[i];
+
+	return node;
 }
 
 
@@ -19,44 +44,32 @@ void Node::init()
 		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f   // top left 
 	};
 
+	
+
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
 	};
+	_indices[0] = 0;
+	_indices[1] = 1;
+	_indices[2] = 3;
+	_indices[3] = 1;
+	_indices[4] = 2;
+	_indices[5] = 3;
+
+
+	_verticesCount = 4;
+	_indicesCount = 6;
 
 
 	shaderProgram = new Shader("shader/CommonVertexShader.hlsl", "shader/CommonFragmentShader.hlsl");
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	setTexture("res/vip_black_quarterly.png");
+	//setTexture("res/vip_black_quarterly.png");
 }
 
 void Node::draw()
 {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -71,10 +84,6 @@ void Node::draw()
 	glBindTexture(GL_TEXTURE, texture);
 	shaderProgram->setInt("texture1", 1);*/
 
-	glBindVertexArray(vao);
-
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
 
 }
 
@@ -110,7 +119,4 @@ void Node::setTexture(const char* imagePath)
 
 void Node::clean()
 {
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
-	glDeleteBuffers(1, &ebo);
 }

@@ -16,17 +16,48 @@
 #include "shader.h"
 
 
+struct V3F_C3F_T2F
+{
+	V3F_C3F_T2F()
+	{
+	}
+	V3F_C3F_T2F(glm::vec3 _vertices, glm::vec3 _colors, glm::vec2 _texCoords)
+	{
+		vertices = _vertices;
+		colors = _colors;
+		texCoords = _texCoords;
+
+	}
+	~V3F_C3F_T2F()
+	{
+	}
+
+	glm::vec3 vertices;
+	glm::vec3 colors;
+	glm::vec2 texCoords;
+};
+
 class Node
 {
 public:
 	Node();
 	~Node();
 
+	static Node* create();
+	static Node* create(V3F_C3F_T2F* vertices, unsigned int lenght);
+
 	void setTexture(const char* imagePath);
 	void clean();
 	void init();
 
 	void draw();
+
+	unsigned int getVerticesCount() { return _verticesCount; }
+
+	unsigned int getIndicesCount() { return _indicesCount; }
+
+	V3F_C3F_T2F* getVertices() { return _vertices; }
+	GLuint* getIndices() { return _indices; }
 private:
 
 	glm::vec3 postion;
@@ -35,8 +66,10 @@ private:
 
 	unsigned int texture;
 
-	unsigned int vao;
-	unsigned int vbo;
-	unsigned int ebo;
+	V3F_C3F_T2F _vertices[16777215];
+	GLuint _indices[16777215];
+	unsigned int _verticesCount;
+	unsigned int _indicesCount;
+
 	Shader* shaderProgram;
 };

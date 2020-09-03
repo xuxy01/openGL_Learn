@@ -13,6 +13,6 @@ uniform vec4 baseColor;
 void main()
 {
 	vec4 texColor = texture(texture0, outUV);
-	//fragColor = texColor * vec4(outColor*sin(time), 1.0);
-	fragColor = texColor ;
+	fragColor =  vec4(outColor*sin(time), 1.0);
+	//fragColor = texColor ;
 }
