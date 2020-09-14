@@ -2,7 +2,11 @@
 
 Node::Node() :
 	_verticesCount(0),
-	_indicesCount(0)
+	_indicesCount(0),
+
+	postion(glm::vec3(0.0f,0.0f,0.0f)),
+	scale(glm::vec3(1.0f, 1.0f, 1.0f)),
+	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f)))
 {
 
 }
@@ -79,6 +83,38 @@ void Node::draw()
 	float timeValue = glfwGetTime();
 	shaderProgram->setFloat("time", timeValue);
 	shaderProgram->setInt("texture0", 0);
+
+	glm::mat4 view = Camera::getInstance()->getView();
+
+	std::cout << "start" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << " view["<<i<<"] =" << view[i].x << "," << view[i].y << "," << view[i].z << "," << view[i].w << std::endl;
+	}
+	std::cout << "end" << std::endl;
+
+	shaderProgram->setFloat4x4("view", glm::value_ptr<float>(view));
+
+
+	glm::mat4 projection = Camera::getInstance()->getProjection();
+
+
+
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, postion);
+	model = glm::mat4_cast(rotation) * model;
+	model = glm::scale(model, scale);
+
+	shaderProgram->setFloat4x4("model", glm::value_ptr<float>(model));
+
+
+	glm::mat4 mvp = projection * view * model;
+	std::cout << "start" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << " mvp[" << i << "] =" << mvp[i].x << "," << mvp[i].y << "," << mvp[i].z << "," << mvp[i].w << std::endl;
+	}
+	std::cout << "end" << std::endl;
 
 	/*glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE, texture);

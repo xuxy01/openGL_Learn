@@ -10,6 +10,7 @@ uniform sampler2D texture0;
 uniform float time;
 uniform vec4 baseColor;
 
+
 void main()
 {
 	vec4 texColor = texture(texture0, outUV);

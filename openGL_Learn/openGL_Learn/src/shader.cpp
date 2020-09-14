@@ -107,3 +107,26 @@ void Shader::setFloat4(const std::string& name, float value0, float value1, floa
 	unsigned int location = glGetUniformLocation(ID, name.c_str());
 	glUniform4f(location, value0, value1, value2, value3);
 }
+
+void Shader::setFloat4x4(const std::string& name, const float* value) const
+{
+	unsigned int location = glGetUniformLocation(ID, name.c_str());
+
+	glUniformMatrix4fv(location, 1, GL_FALSE, value);
+}
+
+void Shader::setFloat4x4(const std::string& name,int count, bool transpose, const glm::mat4 value) const
+{
+	unsigned int location = glGetUniformLocation(ID, name.c_str());
+
+	float temp[16];
+	for (int i = 0; i < 4; i++)
+	{
+		temp[i] = value[i].x;
+		temp[i+1] = value[i].y;
+		temp[i+2] = value[i].z;
+		temp[i+3] = value[i].w;
+	}
+
+	glUniformMatrix4fv(location, count, transpose, temp);
+}

@@ -14,6 +14,7 @@
 #include "lib/std_image.h"
 
 #include "shader.h"
+#include "camera.h"
 
 
 struct V3F_C3F_T2F
@@ -62,7 +63,7 @@ private:
 
 	glm::vec3 postion;
 	glm::vec3 scale;
-	glm::quat ratation;
+	glm::qua<float> rotation;
 
 	unsigned int texture;
 

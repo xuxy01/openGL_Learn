@@ -108,9 +108,6 @@ void Render::fillVertexData()
 		Node* node = (*i);
 		memcpy(&_vertices[_verticesCount], node->getVertices(), sizeof(V3F_C3F_T2F) * node->getVerticesCount());
 
-		std::cout << "Render::fillVertexData  count= " << count << std::endl;
-		std::cout << "Render::fillVertexData  node->getIndicesCount()= " << node->getIndicesCount() << std::endl;
-		std::cout << "Render::fillVertexData  _indicesCount= " << _indicesCount << std::endl;
 		for (int j = 0; j < node->getIndicesCount(); j++)
 		{
 			GLuint* indices = node->getIndices();
