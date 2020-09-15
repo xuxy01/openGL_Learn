@@ -18,6 +18,13 @@ void Model::loadModel(string path)
     processNode(scene->mRootNode, scene);
 }
 
+void Model::Draw(Shader& shader)
+{
+    for (unsigned int i = 0; i < meshes.size(); i++)
+        meshes[i].Draw(shader);
+}
+
+
 
 void Model::processNode(aiNode* node, const aiScene* scene)
 {

@@ -6,7 +6,9 @@ Node::Node() :
 
 	postion(glm::vec3(0.0f,0.0f,0.0f)),
 	scale(glm::vec3(1.0f, 1.0f, 1.0f)),
-	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f)))
+	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f))),
+
+	model(nullptr)
 {
 
 }
@@ -71,45 +73,43 @@ void Node::init()
 
 	//setTexture("res/vip_black_quarterly.png");
 }
+//
+//void Node::draw()
+//{
+//
+//	glActiveTexture(GL_TEXTURE0);
+//	glBindTexture(GL_TEXTURE_2D, texture);
+//
+//	shaderProgram->use();
+//	shaderProgram->setFloat4("baseColor", 1.0f, 1.0f, 0.0f, 1.0f);
+//	float timeValue = glfwGetTime();
+//	shaderProgram->setFloat("time", timeValue);
+//	shaderProgram->setInt("texture0", 0);
+//
+//	glm::mat4 view = Camera::getInstance()->getView();
+//	glm::mat4 projection = Camera::getInstance()->getProjection();
+//
+//	shaderProgram->setMat4("view", glm::value_ptr<float>(projection*view));
+//
+//
+//	//shaderProgram->setMat4("projection", glm::value_ptr<float>(projection));
+//
+//
+//	glm::mat4 model = glm::mat4(1.0f);
+//	model = glm::translate(model, postion);
+//	model = glm::mat4_cast(rotation) * model;
+//	model = glm::scale(model, scale);
+//
+//	shaderProgram->setMat4("model", glm::value_ptr<float>(model));
+//
+//
+//	/*glActiveTexture(GL_TEXTURE1);
+//	glBindTexture(GL_TEXTURE, texture);
+//	shaderProgram->setInt("texture1", 1);*/
+//}
 
 void Node::draw()
 {
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	shaderProgram->use();
-	shaderProgram->setFloat4("baseColor", 1.0f, 1.0f, 0.0f, 1.0f);
-	float timeValue = glfwGetTime();
-	shaderProgram->setFloat("time", timeValue);
-	shaderProgram->setInt("texture0", 0);
-
-	glm::mat4 view = Camera::getInstance()->getView();
-	glm::mat4 projection = Camera::getInstance()->getProjection();
-
-	shaderProgram->setMat4("view", glm::value_ptr<float>(projection*view));
-
-
-	//shaderProgram->setMat4("projection", glm::value_ptr<float>(projection));
-
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, postion);
-	model = glm::mat4_cast(rotation) * model;
-	model = glm::scale(model, scale);
-
-	shaderProgram->setMat4("model", glm::value_ptr<float>(model));
-
-	//glm::vec4 pos = { 0.5f,  0.5f, 0.0f, 1.0f };
-
-	//pos =  (projection * view * model) * pos;
-
-	//std::cout << "new pos =" << pos.x << "," << pos.y << "," << pos.z << "," << pos.w << std::endl;
-
-	/*glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE, texture);
-	shaderProgram->setInt("texture1", 1);*/
-
 
 }
 

@@ -41,7 +41,7 @@ Render* Render::getInstance()
 
 Render::Render()
 {
-	init();
+	//init();
 }
 
 Render::~Render()
@@ -125,52 +125,58 @@ void Render::fillVertexData()
 }
 
 #define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
+//
+//void Render::draw()
+//{
+//
+//	fillVertexData();
+//
+//	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glEnable(GL_DEPTH_TEST);
+//
+//
+//	glBindVertexArray(_vao);
+//	
+//	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices[0])*_verticesCount, _vertices, GL_STATIC_DRAW);
+//
+//	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//
+//	//std::cout << "Render::draw  _indicesCount= " << _indicesCount << std::endl;
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0])* _indicesCount, _indices, GL_STATIC_DRAW);
+//	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0])*6, indices, GL_STATIC_DRAW);
+//
+//	std::list<Node*>::iterator i;
+//	int count = 0;
+//	for (i = nodes.begin(); i != nodes.end(); i++)
+//	{
+//		Node* node = (*i);
+//		(*i)->draw();
+//		V3F_C3F_T2F vert = node->getVertices()[0];
+//		//std::cout << "Render::draw  vert.vertices.x = " << vert.vertices.x << std::endl;
+//		//std::cout << "Render::draw  vert.vertices.y = " << vert.vertices.y << std::endl;
+//		//std::cout << "Render::draw  node->getIndicesCount() = " << node->getIndicesCount() << std::endl;
+//
+//		glDrawElements(GL_TRIANGLES, node->getIndicesCount(), GL_UNSIGNED_INT, (GLvoid*)(_triBatchesToDraw[count]*sizeof(_indices[0])));
+//		//glDrawElements(GL_TRIANGLES, node->getIndicesCount(), GL_UNSIGNED_INT, (GLvoid*)(0));
+//		count += 1;
+//	}
+//
+//
+//	glBindVertexArray(0);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//	
+//	_verticesCount = 0;
+//	_indicesCount = 0;
+//}
+
 
 void Render::draw()
 {
 
-	fillVertexData();
-
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
-
-	glBindVertexArray(_vao);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices[0])*_verticesCount, _vertices, GL_STATIC_DRAW);
-
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	//std::cout << "Render::draw  _indicesCount= " << _indicesCount << std::endl;
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0])* _indicesCount, _indices, GL_STATIC_DRAW);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0])*6, indices, GL_STATIC_DRAW);
-
-	std::list<Node*>::iterator i;
-	int count = 0;
-	for (i = nodes.begin(); i != nodes.end(); i++)
-	{
-		Node* node = (*i);
-		(*i)->draw();
-		V3F_C3F_T2F vert = node->getVertices()[0];
-		//std::cout << "Render::draw  vert.vertices.x = " << vert.vertices.x << std::endl;
-		//std::cout << "Render::draw  vert.vertices.y = " << vert.vertices.y << std::endl;
-		//std::cout << "Render::draw  node->getIndicesCount() = " << node->getIndicesCount() << std::endl;
-
-		glDrawElements(GL_TRIANGLES, node->getIndicesCount(), GL_UNSIGNED_INT, (GLvoid*)(_triBatchesToDraw[count]*sizeof(_indices[0])));
-		//glDrawElements(GL_TRIANGLES, node->getIndicesCount(), GL_UNSIGNED_INT, (GLvoid*)(0));
-		count += 1;
-	}
-
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	
-	_verticesCount = 0;
-	_indicesCount = 0;
 }
 
