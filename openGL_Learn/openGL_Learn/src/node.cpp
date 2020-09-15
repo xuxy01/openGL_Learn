@@ -110,7 +110,10 @@ void Node::init()
 
 void Node::draw()
 {
-
+	if (model)
+	{
+		model->Draw(*shaderProgram);
+	}
 }
 
 
