@@ -86,10 +86,10 @@ void Render::init()
 
 
 	V3F_C3F_T2F vertices[] = {
-		V3F_C3F_T2F(glm::vec3(1.5f, 1.5f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)),
-		V3F_C3F_T2F(glm::vec3(1.5f, 0.5f, 1.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)),
-		V3F_C3F_T2F(glm::vec3(0.5f, 0.5f, 1.0f), glm::vec3(1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		V3F_C3F_T2F(glm::vec3(0.5f, 1.5f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f))
+		V3F_C3F_T2F(glm::vec3(1.5f, 1.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)),
+		V3F_C3F_T2F(glm::vec3(1.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)),
+		V3F_C3F_T2F(glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		V3F_C3F_T2F(glm::vec3(0.5f, 1.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f))
 	};
 
 	nodes.push_back(Node::create(vertices, 4));
@@ -132,7 +132,8 @@ void Render::draw()
 	fillVertexData();
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 
 
 	glBindVertexArray(_vao);

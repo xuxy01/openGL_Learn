@@ -108,14 +108,14 @@ void Shader::setFloat4(const std::string& name, float value0, float value1, floa
 	glUniform4f(location, value0, value1, value2, value3);
 }
 
-void Shader::setFloat4x4(const std::string& name, const float* value) const
+void Shader::setMat4(const std::string& name, const float* value) const
 {
 	unsigned int location = glGetUniformLocation(ID, name.c_str());
 
 	glUniformMatrix4fv(location, 1, GL_FALSE, value);
 }
 
-void Shader::setFloat4x4(const std::string& name,int count, bool transpose, const glm::mat4 value) const
+void Shader::setMat4(const std::string& name,int count, bool transpose, const glm::mat4 value) const
 {
 	unsigned int location = glGetUniformLocation(ID, name.c_str());
 

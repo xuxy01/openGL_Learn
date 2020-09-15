@@ -20,12 +20,12 @@ Camera::Camera():
 	angle(45.0f),
 	near(0.1f),
 	far(100.0f),
-	speed(2.5f),
+	speed(2.50f),
 	lastFrame(-1),
 	firstMouse(true),
 	lastX(0.0f),
 	lastY(0.0f),
-	position(glm::vec3(0.0f, 0.0f, -1.0f)),
+	position(glm::vec3(0.0f, 0.0f, 3.0f)),
 	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f))),
 	scale(45.0f)
 {
@@ -34,87 +34,77 @@ Camera::Camera():
 Camera::~Camera() {}
 
 
-void Camera::moveLeft()
+void Camera::moveLeft(float deltaTime)
 {
-	if (getMoveSpeed() < 0) return;
-
-	float finalSpeed = speed * getMoveSpeed();
+	float finalSpeed = speed * deltaTime;
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	position += finalSpeed * glm::cross(cameraUp, cameraFront);
 }
 
-void Camera::moveRight() 
+void Camera::moveRight(float deltaTime)
 {
-	if (getMoveSpeed() < 0) return;
 
-	float finalSpeed = speed * getMoveSpeed();
+	float finalSpeed = speed * deltaTime;
+	printf("moveRight %f 11\n", finalSpeed);
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	position -= finalSpeed * glm::cross(cameraUp, cameraFront);
 }
-void Camera::moveFront()
+void Camera::moveFront(float deltaTime)
 {
-	if (getMoveSpeed() < 0) return;
 
-	float finalSpeed = speed * getMoveSpeed();
+	float finalSpeed = speed * deltaTime;
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	position += finalSpeed * cameraFront;
 }
-void Camera::moveBack()
+void Camera::moveBack(float deltaTime)
 {
-	if (getMoveSpeed() < 0) return;
-
-	float finalSpeed = speed * getMoveSpeed();
+	float finalSpeed = speed * deltaTime;
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	position -= finalSpeed * cameraFront;
 }
-
-float Camera::getMoveSpeed()
-{
-
-	if (lastFrame < 0.0f)
-	{
-		lastFrame = glfwGetTime();
-		return -1;
-	}
-
-	float currentFrame = glfwGetTime();
-	float deltaTime = currentFrame - lastFrame;
-
-	return  deltaTime;
-}
+//
+//float Camera::getMoveSpeed()
+//{
+//
+//	if (lastFrame < 0.0f)
+//	{
+//		lastFrame = glfwGetTime();
+//		return -1;
+//	}
+//
+//	float currentFrame = glfwGetTime();
+//	float deltaTime = currentFrame - lastFrame;
+//	lastFrame = currentFrame;
+//
+//	return  deltaTime;
+//}
 
 
 void Camera::moveEnd()
 {
+	std::cout << "moveEnd = " << lastFrame << std::endl;
 	lastFrame = -1;
 }
 
 void Camera::rotate(float x, float y)
 {
-	//if (firstMouse)
-	//{
-	//	lastX = x;
-	//	lastY = y;
-	//	firstMouse = false;
-	//}
-	//float sensitivity = 0.05f;
-	//float xOffset = x - lastX;
-	//float yOffset = y - lastY;
 
-	//
-	//glm::quat rotationX = glm::qua<float>(glm::asin(xOffset * sensitivity), 0.0f, 1.0f, 0.0f);
-	//glm::quat rotationY = glm::qua<float>(glm::asin(yOffset * sensitivity), -1.0f, 0.0f, 0.0f);
+	float xoffset = x;
+	float yoffset = y;
 
-	//rotation *= (rotationX * rotationY);
+	glm::quat rotationX = glm::qua<float>(glm::radians(glm::vec3(glm::asin(yoffset * 0.1f), glm::asin(xoffset * 0.1f), 0.0f)));
+
+	rotation *= rotationX;
 }
 
 
-void Camera::cameraScale(float scale)
+void Camera::cameraScale(float yoffset)
 {
+	printf("cameraScale %f \n", yoffset);
 	if (scale >= 1.0f && scale <= 45.0f)
-		scale -= scale;
+		scale -= yoffset;
 	if (scale <= 1.0f)
 		scale = 1.0f;
 	if (scale >= 45.0f)
@@ -124,7 +114,8 @@ void Camera::cameraScale(float scale)
 
 glm::mat4 Camera::getProjection()
 {
-	return glm::perspective<float>(glm::radians(45.0), 800 / 600, near, far);
+	return glm::perspective<float>(glm::radians(scale), 800.0 / 600.0, near, far);
+	//return glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 1000.0f);
 }
 
 glm::mat4 Camera::getView()

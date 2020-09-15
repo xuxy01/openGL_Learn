@@ -20,12 +20,12 @@ public:
 	glm::mat4 getProjection();
 	glm::mat4 getView();
 
-	void moveLeft();
-	void moveRight();
-	void moveFront();
-	void moveBack();
+	void moveLeft(float deltaTime);
+	void moveRight(float deltaTime);
+	void moveFront(float deltaTime);
+	void moveBack(float deltaTime);
 	void moveEnd();
-	float getMoveSpeed();
+	//float getMoveSpeed();
 
 	void rotate(float x, float y);
 

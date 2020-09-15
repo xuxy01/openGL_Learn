@@ -1,5 +1,8 @@
-﻿  node.cpp
+﻿  camera.cpp
 E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\shader.h(3,10): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\node.cpp(35,20): warning C4018: “<”: 有符号/无符号不匹配
-E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\node.cpp(83,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+E:\github\openGL_Learn\openGL_Learn\openGL_Learn\src\camera.cpp(117,78): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
   openGL_Learn.vcxproj -> E:\github\openGL_Learn\openGL_Learn\x64\Debug\openGL_Learn.exe
