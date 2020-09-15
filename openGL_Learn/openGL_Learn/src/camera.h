@@ -40,14 +40,10 @@ private :
 	float far;
 
 	float speed;
-	float lastFrame; // 上一帧的时间
 
 	glm::vec3 position;
 	glm::quat rotation;
 	float scale;
 
-	bool firstMouse;
-	float lastX;
-	float lastY;
 
 };

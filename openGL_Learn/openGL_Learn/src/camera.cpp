@@ -21,10 +21,6 @@ Camera::Camera():
 	near(0.1f),
 	far(100.0f),
 	speed(2.50f),
-	lastFrame(-1),
-	firstMouse(true),
-	lastX(0.0f),
-	lastY(0.0f),
 	position(glm::vec3(0.0f, 0.0f, 3.0f)),
 	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f))),
 	scale(45.0f)
@@ -84,8 +80,6 @@ void Camera::moveBack(float deltaTime)
 
 void Camera::moveEnd()
 {
-	std::cout << "moveEnd = " << lastFrame << std::endl;
-	lastFrame = -1;
 }
 
 void Camera::rotate(float x, float y)
