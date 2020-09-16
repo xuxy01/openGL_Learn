@@ -81,6 +81,10 @@ void Node::draw()
 
 	if (model)
 	{
+		shaderProgram->use();
+		shaderProgram->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
+		shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
+		shaderProgram->setMat4("model", glm::value_ptr(transform));
 		model->Draw(*shaderProgram, transform);
 	}
 

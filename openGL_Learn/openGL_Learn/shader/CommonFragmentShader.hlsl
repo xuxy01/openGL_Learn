@@ -1,19 +1,13 @@
+
 #version 330 core
+out vec4 FragColor;
 
-out vec4 fragColor;
+in vec2 TexCoords;
 
-in vec3 outColor;
-in vec2 outUV;
-
-uniform sampler2D texture0;
-
-uniform float time;
-uniform vec4 baseColor;
-
+uniform sampler2D texture_diffuse1;
 
 void main()
-{
-	vec4 texColor = texture(texture0, outUV);
-	fragColor =  vec4(outColor*sin(time), 1.0);
-	//fragColor = texColor ;
+{    
+    //FragColor = texture(texture_diffuse1, TexCoords);
+    FragColor = vec4(1.0,1.0,0.0,1.0);
 }

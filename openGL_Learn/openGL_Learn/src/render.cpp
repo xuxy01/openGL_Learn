@@ -55,6 +55,9 @@ Render::~Render()
 
 void Render::draw()
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
 	for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); iter++)
 	{
 		(*iter)->draw();
