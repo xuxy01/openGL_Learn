@@ -144,25 +144,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\lib\glad.c" />
     <ClCompile Include="src\lib\std_image.cpp" />
+    <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\mesh.cpp" />
-    <ClCompile Include="src\model.cpp" />
-    <ClCompile Include="src\node.cpp" />
-    <ClCompile Include="src\render.cpp" />
-    <ClCompile Include="src\shader.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Node.cpp" />
+    <ClCompile Include="src\Render.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\IComponent.h" />
     <ClInclude Include="src\lib\std_image.h" />
-    <ClInclude Include="src\mesh.h" />
-    <ClInclude Include="src\model.h" />
-    <ClInclude Include="src\node.h" />
-    <ClInclude Include="src\render.h" />
-    <ClInclude Include="src\shader.h" />
+    <ClInclude Include="src\LightManagere.h" />
+    <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\Node.h" />
+    <ClInclude Include="src\Render.h" />
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\TextureCache.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
