@@ -147,6 +147,7 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\lib\glad.c" />
     <ClCompile Include="src\lib\std_image.cpp" />
+    <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\IComponent.h" />
     <ClInclude Include="src\lib\std_image.h" />
+    <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\LightManagere.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />

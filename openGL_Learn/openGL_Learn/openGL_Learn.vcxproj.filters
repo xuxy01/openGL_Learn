@@ -16,6 +16,9 @@
     <Filter Include="源文件\lib">
       <UniqueIdentifier>{2fc9f3d0-4165-4e9d-87af-0f9573d6144e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Light">
+      <UniqueIdentifier>{af72a1a8-d66f-4f76-988b-b8cfa7997a69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lib\glad.c">
@@ -26,9 +29,6 @@
     </ClCompile>
     <ClCompile Include="src\lib\std_image.cpp">
       <Filter>源文件\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LightManager.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Camera.cpp">
       <Filter>源文件</Filter>
@@ -48,6 +48,12 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightManager.cpp">
+      <Filter>源文件\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Light.cpp">
+      <Filter>源文件\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lib\std_image.h">
@@ -57,9 +63,6 @@
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="src\TextureCache.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LightManagere.h">
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Camera.h">
@@ -79,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="src\Shader.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightManagere.h">
+      <Filter>源文件\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Light.h">
+      <Filter>源文件\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
