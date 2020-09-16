@@ -16,13 +16,13 @@ class Render
 public:
 	Render();
 	~Render();
-
 	static Render* getInstance();
 
 	void addNode(Node* node);
 	void draw();
 
 private:
+
 
 	std::vector<Node*> nodes;
 };
