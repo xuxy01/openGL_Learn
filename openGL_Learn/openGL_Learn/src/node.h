@@ -59,6 +59,11 @@ public:
 	void setModel(ModelObject* model);
 	glm::mat4 getModelMat();
 
+	void setScale(glm::vec3);
+
+	void setPosition(glm::vec3);
+	void setRotation(glm::vec3);
+
 	void draw();
 private:
 

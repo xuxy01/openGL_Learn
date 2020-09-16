@@ -68,11 +68,26 @@ void Node::removeChild(Node* child)
 glm::mat4 Node::getModelMat()
 {
 	glm::mat4 transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, glm::vec3(0.0f,0.0f,0.0f));
+	transform = glm::translate(transform, postion);
 	transform = glm::mat4_cast(rotation) * transform;
 	transform = glm::scale(transform, scale);
 
 	return transform;
+}
+
+void Node::setScale(glm::vec3 newScale)
+{
+	scale = newScale;
+}
+
+
+void Node::setPosition(glm::vec3 newPosition)
+{
+	postion = newPosition;
+}
+void Node::setRotation(glm::vec3 EulerAngles)
+{
+	rotation = glm::quat(glm::radians(EulerAngles));
 }
 
 void Node::draw()

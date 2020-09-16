@@ -42,8 +42,11 @@ Render* Render::getInstance()
 Render::Render()
 {
 	//init();
+	Node* node = Node::create("res/humen/rp_sophia_animated_003_idling.fbx");
+	node->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
+	node->setPosition(glm::vec3(0.0f, -1.0f, 0.0f));
 
-	addNode(Node::create("res/humen/rp_sophia_animated_003_idling.fbx"));
+	addNode(node);
 }
 
 Render::~Render()
