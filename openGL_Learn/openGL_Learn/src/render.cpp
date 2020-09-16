@@ -43,7 +43,7 @@ Render::Render()
 {
 	//init();
 
-	addNode(Node::create("res/siw/siw.fbx"));
+	addNode(Node::create("res/humen/rp_sophia_animated_003_idling.fbx"));
 }
 
 Render::~Render()

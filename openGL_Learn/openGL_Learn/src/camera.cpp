@@ -19,8 +19,8 @@ Camera::Camera():
 	//target(nullptr),
 	angle(45.0f),
 	near(0.1f),
-	far(100.0f),
-	speed(2.50f),
+	far(1000.0f),
+	speed(25.0f),
 	position(glm::vec3(0.0f, 0.0f, 3.0f)),
 	rotation(glm::radians(glm::vec3(0.0f, 0.0f, 0.0f))),
 	scale(45.0f)

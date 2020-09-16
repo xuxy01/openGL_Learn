@@ -75,7 +75,7 @@ Mesh ModelObject::processMesh(aiMesh* mesh, const aiScene* scene)
             vec.y = mesh->mTextureCoords[0][i].y;
             vertex.TexCoords = vec;
             // tangent
-            if (mesh->mTangents)
+            if (mesh->HasTangentsAndBitangents())
             {
                 vector.x = mesh->mTangents[i].x;
                 vector.y = mesh->mTangents[i].y;
@@ -87,7 +87,7 @@ Mesh ModelObject::processMesh(aiMesh* mesh, const aiScene* scene)
             }
             vertex.Tangent = vector;
             // bitangent
-            if (mesh->mBitangents)
+            if (mesh->HasTangentsAndBitangents())
             {
                 vector.x = mesh->mBitangents[i].x;
                 vector.y = mesh->mBitangents[i].y;
