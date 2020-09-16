@@ -1,7 +1,5 @@
 #pragma once
-
 #include <glad/glad.h> 
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -12,33 +10,33 @@
 
 #include "mesh.h"
 #include "shader.h"
+#include "render.h"
 
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <map>
-#include <vector>
-using namespace std;
 
-class Model
+class ModelObject
 {
 public:
+    ModelObject()
+    {
+    }
     /*  函数   */
-    Model(char* path)
+    ModelObject(const char* path)
     {
         loadModel(path);
     }
-    void Draw(Shader& shader);
+    void Draw(Shader& shader, glm::mat4 transform);
 private:
     /*  模型数据  */
-    vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    vector<Mesh> meshes;
-    string directory;
+    std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    std::vector<Mesh> meshes;
+    std::string directory;
     /*  函数   */
-    void loadModel(string path);
+    void loadModel(std::string path);
     void processNode(aiNode* node, const aiScene* scene);
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-    vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
-        string typeName);
+    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 };

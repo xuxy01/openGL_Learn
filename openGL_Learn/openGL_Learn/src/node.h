@@ -39,6 +39,8 @@ struct V3F_C3F_T2F
 	glm::vec2 texCoords;
 };
 
+class ModelObject;
+
 class Node
 {
 public:
@@ -46,34 +48,30 @@ public:
 	~Node();
 
 	static Node* create();
-	static Node* create(V3F_C3F_T2F* vertices, unsigned int lenght);
 
-	void setTexture(const char* imagePath);
-	void clean();
+	static Node* create(std::string path);
+
 	void init();
 
+	void addChild(Node* child);
+	void removeChild(Node* child);
+
+	void setModel(ModelObject* model);
+	glm::mat4 getModelMat();
+
 	void draw();
-
-	unsigned int getVerticesCount() { return _verticesCount; }
-
-	unsigned int getIndicesCount() { return _indicesCount; }
-
-	V3F_C3F_T2F* getVertices() { return _vertices; }
-	GLuint* getIndices() { return _indices; }
 private:
 
 	glm::vec3 postion;
 	glm::vec3 scale;
 	glm::qua<float> rotation;
 
-	Model* model;
+	std::vector<Node*> children;
+
+	ModelObject* model;
 
 	unsigned int texture;
 
-	V3F_C3F_T2F _vertices[16777215];
-	GLuint _indices[16777215];
-	unsigned int _verticesCount;
-	unsigned int _indicesCount;
 
 	Shader* shaderProgram;
 };

@@ -1,14 +1,12 @@
 #pragma once
 
+#include <vector>
 #include <glad/glad.h> // holds all OpenGL type declarations
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "shader.h"
-#include <string>
-#include <vector>
-using namespace std;
 
 
 struct Vertex {
@@ -25,20 +23,20 @@ struct Vertex {
 };
 struct Texture {
     unsigned int id;
-    string type;
-    string path;
+    std::string type;
+    std::string path;
 };
 
 
 class Mesh {
 public:
     /*  网格数据  */
-    vector<Vertex> vertices;
-    vector<unsigned int> indices;
-    vector<Texture> textures;
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
     /*  函数  */
-    Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
-    void Draw(Shader& shader);
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    void Draw(Shader& shader, glm::mat4 transform);
 private:
     /*  渲染数据  */
     unsigned int VAO, VBO, EBO;
