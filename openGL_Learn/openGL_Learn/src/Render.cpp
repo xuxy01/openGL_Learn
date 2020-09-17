@@ -46,7 +46,17 @@ Render::Render()
 	node->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
 	node->setPosition(glm::vec3(0.0f, -1.0f, 0.0f));
 
+
+	Node* node2 = Node::create("res/humen/rp_sophia_animated_003_idling.fbx");
+	node2->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
+	node2->setPosition(glm::vec3(-1.0f, 0.0f, -2.0f));
+
 	addNode(node);
+	addNode(node2);
+
+	SpotLight* light = new SpotLight();
+	LightManager::getInstance()->addLight(light);
+
 }
 
 Render::~Render()
@@ -61,6 +71,7 @@ void Render::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
+	Camera::getInstance()->update();
 	for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); iter++)
 	{
 		(*iter)->draw();

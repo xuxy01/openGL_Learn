@@ -120,3 +120,13 @@ glm::mat4 Camera::getView()
 
 	return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 }
+
+
+void Camera::update()
+{
+	//glm::quat trans = glm::quat(glm::radians(glm::vec3(0.0f, 1.0f, 0.0f)));
+	//position = trans* position;
+
+	//rotation = trans * rotation;
+
+}

@@ -23,6 +23,7 @@ public:
 	void setFloat(const std::string& name, float value) const;
 	void setInt(const std::string& name, int value) const;
 	void setBool(const std::string& name, bool value) const;
+	void setFloat3(const std::string& name, float value0, float value1, float value2) const;
 	void setFloat4(const std::string& name, float value0, float value1, float value2, float value3) const;
 
 	void setMat4(const std::string& name, const float* value) const;

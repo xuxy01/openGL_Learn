@@ -16,6 +16,7 @@
 #include "shader.h"
 #include "camera.h"
 #include "model.h"
+#include "LightManagere.h"
 
 
 struct V3F_C3F_T2F

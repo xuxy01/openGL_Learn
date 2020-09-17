@@ -68,6 +68,8 @@ void Node::removeChild(Node* child)
 glm::mat4 Node::getModelMat()
 {
 	glm::mat4 transform = glm::mat4(1.0f);
+
+	//rotation *= glm::quat(glm::radians(glm::vec3(0.0f, 0.2f, 0.0f)));
 	transform = glm::translate(transform, postion);
 	transform = glm::mat4_cast(rotation) * transform;
 	transform = glm::scale(transform, scale);
@@ -100,6 +102,10 @@ void Node::draw()
 		shaderProgram->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
 		shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
 		shaderProgram->setMat4("model", glm::value_ptr(transform));
+
+
+		LightManager::getInstance()->use(shaderProgram);
+
 		model->Draw(*shaderProgram, transform);
 	}
 

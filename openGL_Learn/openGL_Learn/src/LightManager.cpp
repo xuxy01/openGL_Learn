@@ -23,3 +23,16 @@ LightManager::~LightManager()
 {
 
 }
+
+void LightManager::addLight(Light* light)
+{
+	lights.push_back(light);
+}
+
+void LightManager::use(Shader* shader)
+{
+	for (std::vector<Light*>::iterator iter = lights.begin(); iter != lights.end(); iter++)
+	{
+		(*iter)->use(shader);
+	}
+}

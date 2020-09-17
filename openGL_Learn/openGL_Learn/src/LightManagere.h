@@ -3,7 +3,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
+#include <vector>
+#include "Light.h"
+
+class Light;
+class DirctLight;
+class SpotLight;
+class PointLight;
 
 class LightManager
 {
@@ -12,4 +18,10 @@ public:
 	~LightManager();
 
 	static LightManager* getInstance();
+
+	void addLight(Light*);
+
+	void use(Shader* shader);
+private:
+	std::vector<Light*> lights;
 };

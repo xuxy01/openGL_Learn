@@ -29,7 +29,7 @@ public:
 
 	void rotate(float x, float y);
 
-
+	void update();
 	void cameraScale(float scale);
 
 private :

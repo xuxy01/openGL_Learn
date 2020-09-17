@@ -6,70 +6,67 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Shader.h"
+
 
 class Light
 {
 public:
 	Light();
 	~Light();
+	
+	virtual void use(Shader* shader) {};
 
-private:
-	glm::vec3 postion;
-	glm::vec3 scale;
-	glm::qua<float> rotation;
+protected:
+	glm::vec3 lightColor;
 
 };
 
-class DirectLight:Light
+class DirectLight:public Light
 {
 public:
 	DirectLight();
 	~DirectLight();
-	virtual float getLight();
+	void use(Shader* shader);
 private:
-
+	glm::vec3 direction;
+	glm::qua<float> rotation;
 };
 
-DirectLight::DirectLight()
-{
-}
 
-DirectLight::~DirectLight()
-{
-}
-
-class PointLight:Light
+class PointLight:public Light
 {
 public:
 	PointLight();
 	~PointLight();
 
+	void use(Shader* shader);
 private:
+	glm::vec3 position;
 
+	float constant;
+	float linear;
+	float quadratic;
 };
 
-PointLight::PointLight()
-{
-}
 
-PointLight::~PointLight()
-{
-}
-
-class Spotlight:Light
+class SpotLight :public Light
 {
 public:
-	Spotlight();
-	~Spotlight();
+	SpotLight();
+	~SpotLight();
 
+	void use(Shader* shader);
 private:
+	glm::vec3 direction;
+	glm::vec3 position;
+	glm::qua<float> rotation;
+
+	float cutOff;
+	float outerCutOff;
+
+	float constant;
+	float linear;
+	float quadratic;
 
 };
-
-Spotlight::Spotlight()
-{
-}
-
-Spotlight::~Spotlight()
-{
-}
