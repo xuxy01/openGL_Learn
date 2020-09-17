@@ -7,6 +7,9 @@ in vec4 worldPos;
 in vec3 worldNormal;
 
 uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
+uniform sampler2D texture_normal1;
+uniform vec3 viewPos;
 
 struct DirectLight {
     vec3 lightColor;
@@ -48,7 +51,7 @@ void main()
 
     vec3 norm = normalize(worldNormal);
     //直射光
-    vec3 lightDir = normalize(worldPos.xyz-directLight.direction);
+    vec3 lightDir = normalize(-directLight.direction);
 
     //点光源
     //vec3 lightDir = normalize(spotLight.position - worldPos.xyz);
@@ -67,7 +70,12 @@ void main()
 
     //vec3 color = (ambient+ diffuse)*intensity* attenuation* spotLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
 
-    vec3 color = (ambient+ diffuse)*  directLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
+    vec3 viewDir = normalize(viewPos - worldPos.xyz);
 
-    FragColor = vec4(color, 1.0f);
+    vec3 halfDir  = normalize(lightDir + viewDir);
+    float specular = pow(max(dot(halfDir, norm), 0), 16);
+
+    vec3 color = (ambient + diffuse+specular)*  directLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
+
+    FragColor = vec4(color , 1.0f);
 }

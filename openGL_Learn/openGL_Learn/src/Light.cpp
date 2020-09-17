@@ -11,7 +11,7 @@ Light::~Light()
 }
 
 DirectLight::DirectLight()
-	:direction(glm::vec3(0.0f, 0.0f, -1.0f)),
+	:direction(glm::vec3(-1.0f, 0.0f, 0.0f)),
 	rotation(glm::quat(glm::radians(glm::vec3(0.0f, 0.0, 0.0f))))
 {
 	
@@ -23,7 +23,7 @@ DirectLight::~DirectLight()
 
 void DirectLight::use(Shader* shader)
 {	
-	//rotation = rotation * glm::quat(glm::radians(glm::vec3(0.0f, 0.22f, 0.0f)));
+	//rotation = rotation * glm::quat(glm::radians(glm::vec3(0.0f, 0.05f, 0.0f)));
 	glm::vec3 newDirection = rotation * direction;
 	shader->setFloat3("directLight.direction", newDirection.x, newDirection.y, newDirection.z);
 	shader->setFloat3("directLight.lightColor", lightColor.x, lightColor.y, lightColor.z);

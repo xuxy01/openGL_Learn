@@ -32,6 +32,8 @@ public:
 	void update();
 	void cameraScale(float scale);
 
+	glm::vec3 getPosition();
+
 private :
 	//Node* target;
 

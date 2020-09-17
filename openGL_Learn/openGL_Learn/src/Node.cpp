@@ -106,6 +106,9 @@ void Node::draw()
 
 		LightManager::getInstance()->use(shaderProgram);
 
+		
+		shaderProgram->setFloat3("viewPos", Camera::getInstance()->getPosition());
+
 		model->Draw(*shaderProgram, transform);
 	}
 

@@ -164,6 +164,11 @@ std::vector<Texture> ModelObject::loadMaterialTextures(aiMaterial* mat, aiTextur
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
+
+            std::cout << "texture.path=" << texture.path << std::endl;
+            std::cout << "texture.type=" << texture.type << std::endl;
+            std::cout << "texture.id=" << texture.id << std::endl;
+
             textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
         }
     }

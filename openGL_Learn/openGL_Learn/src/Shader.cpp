@@ -103,10 +103,22 @@ void Shader::setBool(const std::string& name, bool value) const
 }
 
 
+void Shader::setFloat3(const std::string& name, glm::vec3 value) const
+{
+
+	unsigned int location = glGetUniformLocation(ID, name.c_str());
+	glUniform3f(location, value.x, value.y, value.z);
+}
 void  Shader::setFloat3(const std::string& name, float value0, float value1, float value2) const
 {
 	unsigned int location = glGetUniformLocation(ID, name.c_str());
 	glUniform3f(location, value0, value1, value2);
+}
+
+void Shader::setFloat4(const std::string& name, glm::vec4 value) const
+{
+	unsigned int location = glGetUniformLocation(ID, name.c_str());
+	glUniform4f(location, value.x, value.y, value.z,value.w);
 }
 void Shader::setFloat4(const std::string& name, float value0, float value1, float value2, float value3) const
 {
