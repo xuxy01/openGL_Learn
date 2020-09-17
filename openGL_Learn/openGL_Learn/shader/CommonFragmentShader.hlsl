@@ -48,7 +48,7 @@ void main()
 
     vec3 norm = normalize(worldNormal);
     //直射光
-    //vec3 lightDir = normalize(worldPos-directLight.direction);
+    vec3 lightDir = normalize(worldPos.xyz-directLight.direction);
 
     //点光源
     //vec3 lightDir = normalize(spotLight.position - worldPos.xyz);
@@ -56,16 +56,18 @@ void main()
     //float attenuation = 1.0/(spotLight.constant +spotLight.linear*distance + spotLight.quadratic * distance*distance );
 
     //聚光灯
-    vec3 lightDir = normalize(spotLight.position - worldPos.xyz);
-    float theta = dot(lightDir , normalize(-spotLight.direction));
-    float epsilon = spotLight.cutOff - spotLight.outerCutOff;
-    float intensity = clamp((theta - spotLight.outerCutOff) / epsilon, 0.0, 1.0);
-    float distance = length(spotLight.position - worldPos.xyz);
-    float attenuation = 1.0/(spotLight.constant +spotLight.linear*distance + spotLight.quadratic * distance*distance );
+    //vec3 lightDir = normalize(spotLight.position - worldPos.xyz);
+    //float theta = dot(lightDir , normalize(-spotLight.direction));
+    //float epsilon = spotLight.cutOff - spotLight.outerCutOff;
+    //float intensity = clamp((theta - spotLight.outerCutOff) / epsilon, 0.0, 1.0);
+    //float distance = length(spotLight.position - worldPos.xyz);
+    //float attenuation = 1.0/(spotLight.constant +spotLight.linear*distance + spotLight.quadratic * distance*distance );
 
     float diffuse = max(dot(lightDir, norm)/2 + 0.5, 0);
 
-    vec3 color = (ambient+ diffuse)*intensity* attenuation* spotLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
+    //vec3 color = (ambient+ diffuse)*intensity* attenuation* spotLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
+
+    vec3 color = (ambient+ diffuse)*  directLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
 
     FragColor = vec4(color, 1.0f);
 }

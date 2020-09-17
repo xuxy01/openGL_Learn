@@ -54,7 +54,7 @@ Render::Render()
 	addNode(node);
 	addNode(node2);
 
-	SpotLight* light = new SpotLight();
+	DirectLight* light = new DirectLight();
 	LightManager::getInstance()->addLight(light);
 
 }
