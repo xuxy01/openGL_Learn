@@ -94,11 +94,11 @@ void Node::setRotation(glm::vec3 EulerAngles)
 
 void Node::draw()
 {
-	glm::mat4 transform = getModelMat();
 
 	if (model)
 	{
 		shaderProgram->use();
+		glm::mat4 transform = getModelMat();
 		shaderProgram->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
 		shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
 		shaderProgram->setMat4("model", glm::value_ptr(transform));
@@ -109,7 +109,37 @@ void Node::draw()
 		
 		shaderProgram->setFloat3("viewPos", Camera::getInstance()->getPosition());
 
-		model->Draw(*shaderProgram, transform);
+		bool bDrawOutline = false;
+		if (bDrawOutline)
+		{
+			glEnable(GL_STENCIL_TEST);
+			glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+			glStencilMask(0xFF);
+			glStencilFunc(GL_ALWAYS, 1, 0xFF);
+
+			model->Draw(*shaderProgram, transform);
+
+			glStencilMask(0x00);
+			glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+			glDisable(GL_DEPTH_TEST);
+
+			Shader* outlineShader = new Shader("shader/OutlineVertexShader.hlsl", "shader/OutlineFragmentShader.hlsl");
+			outlineShader->use();
+			glm::mat4 transform = getModelMat();
+			outlineShader->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
+			outlineShader->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
+			outlineShader->setMat4("model", glm::value_ptr(transform));
+			model->Draw(*outlineShader, transform);
+			glStencilMask(0xFF);
+			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_STENCIL_TEST);
+			delete outlineShader;
+		}
+		else
+		{
+			model->Draw(*shaderProgram, transform);
+		}
 	}
 
 	for (std::vector<Node*>::iterator iter = children.begin(); iter != children.end(); iter++)
