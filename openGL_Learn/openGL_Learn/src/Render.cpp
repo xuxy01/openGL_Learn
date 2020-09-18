@@ -70,6 +70,8 @@ void Render::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	Camera::getInstance()->update();
 	for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); iter++)
