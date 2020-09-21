@@ -18,11 +18,18 @@ public:
 	~Render();
 	static Render* getInstance();
 
+	void init();
 	void addNode(Node* node);
 	void draw();
+	void createFrameBuffer();
+	void createScreenVAO();
+	void renderScreen();
 
 private:
 
+	unsigned int quadVAO, quadVBO;
+	unsigned int fbo;
+	unsigned int textureColorbuffer;
 
 	std::vector<Node*> nodes;
 };
