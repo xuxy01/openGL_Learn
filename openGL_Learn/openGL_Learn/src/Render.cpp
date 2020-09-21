@@ -120,11 +120,32 @@ void Render::draw()
 		(*iter)->draw();
 	}
 
+	renderSkyBox();
+
 	if (bPostProcessing)
 	{
 		renderScreen();
 	}
 
+
+}
+
+void Render::renderSkyBox()
+{
+	std::vector<std::string> faces
+	{
+		//"right.jpg",
+		//"left.jpg",
+		//"top.jpg",
+		//"bottom.jpg",
+		//"front.jpg",
+		//"back.jpg"
+	};
+	unsigned int cubemapTexture = Utils::loadCubemap(faces);
+
+
+	Shader* outlineShader = new Shader("shader/SkyBoxVertexShader.hlsl", "shader/SkyBoxFragmentShader.hlsl");
+	outlineShader->use();
 }
 
 void Render::renderScreen()

@@ -89,5 +89,8 @@
     <ClInclude Include="src\Light.h">
       <Filter>源文件\Light</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

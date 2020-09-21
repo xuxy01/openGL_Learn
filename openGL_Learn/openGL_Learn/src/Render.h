@@ -24,6 +24,7 @@ public:
 	void createFrameBuffer();
 	void createScreenVAO();
 	void renderScreen();
+	void renderSkyBox();
 
 private:
 
