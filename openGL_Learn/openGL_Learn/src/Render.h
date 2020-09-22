@@ -23,14 +23,17 @@ public:
 	void draw();
 	void createFrameBuffer();
 	void createScreenVAO();
+	void createSkyBoxVAO();
 	void renderScreen();
 	void renderSkyBox();
 
 private:
 
 	unsigned int quadVAO, quadVBO;
+	unsigned int skyBoxVAO, skyBoxVBO;
 	unsigned int fbo;
 	unsigned int textureColorbuffer;
+	unsigned int cubemapTexture;
 
 	std::vector<Node*> nodes;
 };

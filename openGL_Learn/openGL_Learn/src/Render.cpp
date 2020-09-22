@@ -71,6 +71,7 @@ void Render::init()
 {
 	createFrameBuffer();
 	createScreenVAO();
+	createSkyBoxVAO();
 }
 
 void Render::createScreenVAO()
@@ -96,8 +97,75 @@ void Render::createScreenVAO()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+}
+
+
+void Render::createSkyBoxVAO()
+{
+	float skyboxVertices[] = {
+		// positions          
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		 1.0f, -1.0f, -1.0f,
+		 1.0f, -1.0f, -1.0f,
+		 1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		 1.0f, -1.0f, -1.0f,
+		 1.0f, -1.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,
+		 1.0f,  1.0f, -1.0f,
+		 1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,
+		 1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f,  1.0f, -1.0f,
+		 1.0f,  1.0f, -1.0f,
+		 1.0f,  1.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		 1.0f, -1.0f, -1.0f,
+		 1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		 1.0f, -1.0f,  1.0f
+	};
+
+	glGenVertexArrays(1, &skyBoxVAO);
+	glGenBuffers(1, &skyBoxVBO);
+	glBindVertexArray(skyBoxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyBoxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+
+	std::vector<std::string> faces
+	{
+		"res/Skyboxes/_Skybox/Sky_02.jpg",
+		"res/Skyboxes/_Skybox/Sky_04.jpg",
+		"res/Skyboxes/_Skybox/Sky_05.jpg",
+		"res/Skyboxes/_Skybox/Sky_06.jpg",
+		"res/Skyboxes/_Skybox/Sky_01.jpg",
+		"res/Skyboxes/_Skybox/Sky_03.jpg",
+	};
+	cubemapTexture = Utils::loadCubemap(faces);
 }
 
 void Render::draw()
@@ -132,20 +200,27 @@ void Render::draw()
 
 void Render::renderSkyBox()
 {
-	std::vector<std::string> faces
-	{
-		//"right.jpg",
-		//"left.jpg",
-		//"top.jpg",
-		//"bottom.jpg",
-		//"front.jpg",
-		//"back.jpg"
-	};
-	unsigned int cubemapTexture = Utils::loadCubemap(faces);
 
 
+
+
+
+	glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 	Shader* outlineShader = new Shader("shader/SkyBoxVertexShader.hlsl", "shader/SkyBoxFragmentShader.hlsl");
 	outlineShader->use();
+	glm::mat4 view =glm::mat4(glm::mat3( Camera::getInstance()->getView()));
+	glm::mat4 projection = Camera::getInstance()->getProjection();
+	outlineShader->setMat4("view",glm::value_ptr(view));
+	outlineShader->setMat4("projection", glm::value_ptr(projection));
+
+	outlineShader->setInt("skybox", 0);
+	glBindVertexArray(skyBoxVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+	glDepthFunc(GL_LESS); // set depth function back to default
 }
 
 void Render::renderScreen()
