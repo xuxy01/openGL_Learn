@@ -153,7 +153,7 @@ void Render::createSkyBoxVAO()
 	glBindBuffer(GL_ARRAY_BUFFER, skyBoxVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
 
 	std::vector<std::string> faces
@@ -166,6 +166,8 @@ void Render::createSkyBoxVAO()
 		"res/Skyboxes/_Skybox/Sky_03.jpg",
 	};
 	cubemapTexture = Utils::loadCubemap(faces);
+
+	std::cout << "cubemapTexture = " << cubemapTexture << std::endl;
 }
 
 void Render::draw()
@@ -201,14 +203,11 @@ void Render::draw()
 void Render::renderSkyBox()
 {
 
-
-
-
-
 	glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 	Shader* outlineShader = new Shader("shader/SkyBoxVertexShader.hlsl", "shader/SkyBoxFragmentShader.hlsl");
 	outlineShader->use();
 	glm::mat4 view =glm::mat4(glm::mat3( Camera::getInstance()->getView()));
+	//glm::mat4 view = glm::mat4(Camera::getInstance()->getView());
 	glm::mat4 projection = Camera::getInstance()->getProjection();
 	outlineShader->setMat4("view",glm::value_ptr(view));
 	outlineShader->setMat4("projection", glm::value_ptr(projection));
