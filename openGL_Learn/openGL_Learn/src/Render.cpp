@@ -158,14 +158,15 @@ void Render::createSkyBoxVAO()
 
 	std::vector<std::string> faces
 	{
-		"res/Skyboxes/_Skybox/Sky_02.jpg",
-		"res/Skyboxes/_Skybox/Sky_04.jpg",
-		"res/Skyboxes/_Skybox/Sky_05.jpg",
-		"res/Skyboxes/_Skybox/Sky_06.jpg",
-		"res/Skyboxes/_Skybox/Sky_01.jpg",
-		"res/Skyboxes/_Skybox/Sky_03.jpg",
+		"./res/Skyboxes/_Skybox/Sky_02.jpg",
+		"./res/Skyboxes/_Skybox/Sky_04.jpg",
+		"./res/Skyboxes/_Skybox/Sky_05.jpg",
+		"./res/Skyboxes/_Skybox/Sky_06.jpg",
+		"./res/Skyboxes/_Skybox/Sky_01.jpg",
+		"./res/Skyboxes/_Skybox/Sky_03.jpg",
 	};
 	cubemapTexture = Utils::loadCubemap(faces);
+	//cubemapTexture = Utils::TextureFromFile(faces[4].c_str(), "./", false);
 
 	std::cout << "cubemapTexture = " << cubemapTexture << std::endl;
 }
@@ -216,6 +217,7 @@ void Render::renderSkyBox()
 	glBindVertexArray(skyBoxVAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	//glBindTexture(GL_TEXTURE_2D, cubemapTexture);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);

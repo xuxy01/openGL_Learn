@@ -87,6 +87,15 @@ void Camera::rotate(float x, float y)
 
 	float xoffset = x;
 	float yoffset = y;
+	if (xoffset < -10.0)
+		xoffset = -10.0;
+	if (xoffset > 10.0)
+		xoffset = 10.0;
+
+	if (yoffset < -10.0)
+		yoffset = -10.0;
+	if (yoffset > 10.0)
+		yoffset = 10.0;
 
 	glm::quat rotationX = glm::qua<float>(glm::radians(glm::vec3(glm::asin(yoffset * 0.1f), glm::asin(xoffset * 0.1f), 0.0f)));
 
@@ -115,6 +124,7 @@ glm::mat4 Camera::getProjection()
 glm::mat4 Camera::getView()
 {
 	glm::vec3 cameraPos = position;
+
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
