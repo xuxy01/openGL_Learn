@@ -273,6 +273,12 @@ void Render::createFrameBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+
+const unsigned int Render::getSkyBoxTexture()
+{
+	return cubemapTexture;
+}
+
 void Render::addNode(Node* node)
 {
 	nodes.push_back(node);

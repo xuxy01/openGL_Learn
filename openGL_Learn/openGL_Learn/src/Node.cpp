@@ -109,6 +109,12 @@ void Node::draw()
 		
 		shaderProgram->setFloat3("viewPos", Camera::getInstance()->getPosition());
 
+		shaderProgram->setInt("skybox", 10);
+
+		
+		glActiveTexture(GL_TEXTURE0+10);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, Render::getInstance()->getSkyBoxTexture());
+
 		bool bDrawOutline = false;
 		if (bDrawOutline)
 		{

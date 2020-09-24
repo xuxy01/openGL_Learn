@@ -27,6 +27,8 @@ public:
 	void renderScreen();
 	void renderSkyBox();
 
+	const unsigned int getSkyBoxTexture();
+
 private:
 
 	unsigned int quadVAO, quadVBO;
