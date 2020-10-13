@@ -9,8 +9,14 @@ out vec4 worldPos;
 out vec3 worldNormal;
 
 uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+//uniform mat4 view;
+//uniform mat4 projection;
+
+layout (std140) uniform Matrices
+{
+    mat4 projection;
+    mat4 view;
+};/**/
 
 void main()
 {

@@ -99,10 +99,12 @@ void Node::draw()
 	{
 		shaderProgram->use();
 		glm::mat4 transform = getModelMat();
-		shaderProgram->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
-		shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
+		//shaderProgram->setMat4("projection", glm::value_ptr(Camera::getInstance()->getProjection()));
+		//shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
 		shaderProgram->setMat4("model", glm::value_ptr(transform));
 
+		unsigned int uniformblockIndexCamera = glGetUniformBlockIndex(shaderProgram->ID, "Matrices");
+		glUniformBlockBinding(shaderProgram->ID, uniformblockIndexCamera, 0);
 
 		LightManager::getInstance()->use(shaderProgram);
 

@@ -72,6 +72,8 @@ void Render::init()
 	createFrameBuffer();
 	createScreenVAO();
 	createSkyBoxVAO();
+
+	createCameraUBO();
 }
 
 void Render::createScreenVAO()
@@ -97,6 +99,16 @@ void Render::createScreenVAO()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+}
+
+void Render::createCameraUBO()
+{
+	glGenBuffers(1, &cameraUBO);
+	glBindBuffer(GL_UNIFORM_BUFFER, cameraUBO);
+	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, cameraUBO);
 }
 
 
@@ -186,6 +198,14 @@ void Render::draw()
 
 
 	Camera::getInstance()->update();
+
+	glm::mat4 projection = Camera::getInstance()->getProjection();
+	glm::mat4 view = Camera::getInstance()->getView();
+	glBindBuffer(GL_UNIFORM_BUFFER, cameraUBO);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
+	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
 	for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); iter++)
 	{
 		(*iter)->draw();

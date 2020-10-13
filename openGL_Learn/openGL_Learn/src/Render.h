@@ -26,6 +26,7 @@ public:
 	void createSkyBoxVAO();
 	void renderScreen();
 	void renderSkyBox();
+	void createCameraUBO();
 
 	const unsigned int getSkyBoxTexture();
 
@@ -36,6 +37,7 @@ private:
 	unsigned int fbo;
 	unsigned int textureColorbuffer;
 	unsigned int cubemapTexture;
+	unsigned int cameraUBO;
 
 	std::vector<Node*> nodes;
 };
