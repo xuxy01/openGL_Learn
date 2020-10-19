@@ -139,9 +139,9 @@ glm::vec3 Camera::getPosition()
 
 void Camera::update()
 {
-	glm::quat trans = glm::quat(glm::radians(glm::vec3(0.0f, 0.1f, 0.0f)));
+	/*glm::quat trans = glm::quat(glm::radians(glm::vec3(0.0f, 0.1f, 0.0f)));
 	position = trans* position;
 
-	rotation = trans * rotation;
+	rotation = trans * rotation;*/
 
 }

@@ -42,14 +42,17 @@ Render* Render::getInstance()
 Render::Render()
 {
 	init();
-	Node* node = Node::create("res/humen/rp_sophia_animated_003_idling.fbx");
+	Node* node = Node::create("res/lamp/Lamp.obj");
+	node->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	node->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
-	node->setPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+	node->setRotation(glm::vec3(90.0f, 0.0f, 0.0f));
 
+	Utils::printMat("node model", node->getModelMat());
 
-	Node* node2 = Node::create("res/humen/rp_sophia_animated_003_idling.fbx");
-	node2->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
-	node2->setPosition(glm::vec3(-1.0f, 0.0f, -2.0f));
+	Node* node2 = Node::create("res/floor/Floor.fbx");
+	node2->setScale(glm::vec3(0.1f, 0.1f, 0.1f));
+	node2->setRotation(glm::vec3(-90.0f, 0.0f, 0.0f));
+	node2->setPosition(glm::vec3(-1.0f, -2.0f, -2.0f));
 
 	addNode(node);
 	addNode(node2);
@@ -193,8 +196,8 @@ void Render::draw()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
 
 
 	Camera::getInstance()->update();
@@ -228,7 +231,6 @@ void Render::renderSkyBox()
 	Shader* outlineShader = new Shader("shader/SkyBoxVertexShader.hlsl", "shader/SkyBoxFragmentShader.hlsl");
 	outlineShader->use();
 	glm::mat4 view =glm::mat4(glm::mat3( Camera::getInstance()->getView()));
-	//glm::mat4 view = glm::mat4(Camera::getInstance()->getView());
 	glm::mat4 projection = Camera::getInstance()->getProjection();
 	outlineShader->setMat4("view",glm::value_ptr(view));
 	outlineShader->setMat4("projection", glm::value_ptr(projection));
@@ -242,6 +244,8 @@ void Render::renderSkyBox()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS); // set depth function back to default
+
+	delete outlineShader;
 }
 
 void Render::renderScreen()
@@ -259,6 +263,7 @@ void Render::renderScreen()
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
+	delete outlineShader;
 }
 
 void Render::createFrameBuffer()

@@ -86,4 +86,25 @@ inline unsigned int loadCubemap(std::vector<std::string> faces)
 
     return textureID;
 }
+
+inline void printMat(std::string tag, glm::mat4 mat)
+{
+    const glm::f32* model = glm::value_ptr(mat);
+    std::cout << "mat " << tag.c_str() << " =" << std::endl;
+    std::cout << "[" << std::endl;
+    for (int i = 0; i < 16; i++)
+    {
+        if ((i+1)%4 == 0) 
+        { 
+            std::cout << model[i] << std::endl;
+        }
+        else
+        {
+            std::cout << model[i] << ",";
+        }
+       
+    }
+    std::cout << "]" << std::endl;
+
+}
 }

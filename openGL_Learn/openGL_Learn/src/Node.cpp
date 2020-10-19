@@ -69,9 +69,8 @@ glm::mat4 Node::getModelMat()
 {
 	glm::mat4 transform = glm::mat4(1.0f);
 
-	//rotation *= glm::quat(glm::radians(glm::vec3(0.0f, 0.2f, 0.0f)));
 	transform = glm::translate(transform, postion);
-	transform = glm::mat4_cast(rotation) * transform;
+	transform = transform * glm::mat4_cast(rotation);
 	transform = glm::scale(transform, scale);
 
 	return transform;

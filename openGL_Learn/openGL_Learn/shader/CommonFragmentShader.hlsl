@@ -77,5 +77,7 @@ void main()
 
     vec3 color = (ambient + diffuse+specular)*  directLight.lightColor * texture(texture_diffuse1, TexCoords).rgb;
 
+    //vec3 color = (ambient + diffuse+specular) *  directLight.lightColor;
+
     FragColor = vec4(color , 1.0f);
 }

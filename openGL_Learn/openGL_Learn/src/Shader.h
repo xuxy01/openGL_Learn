@@ -17,6 +17,10 @@ public:
 	unsigned int ID;
 
 	Shader(const char* vertexPath, const char* fragPath);
+	~Shader()
+	{
+		glDeleteProgram(ID);
+	};
 
 	void use();
 
