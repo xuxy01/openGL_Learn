@@ -36,3 +36,8 @@ void LightManager::use(Shader* shader)
 		(*iter)->use(shader);
 	}
 }
+
+Light* LightManager::getLight(int index)
+{
+	return lights[index];
+}

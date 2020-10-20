@@ -102,16 +102,16 @@ void Node::draw()
 		//shaderProgram->setMat4("view", glm::value_ptr(Camera::getInstance()->getView()));
 		shaderProgram->setMat4("model", glm::value_ptr(transform));
 
+		shaderProgram->setMat4("lightSpaceMatrix", glm::value_ptr(Render::getInstance()->getLightSpaceMatrix()));
+
 		unsigned int uniformblockIndexCamera = glGetUniformBlockIndex(shaderProgram->ID, "Matrices");
 		glUniformBlockBinding(shaderProgram->ID, uniformblockIndexCamera, 0);
 
 		LightManager::getInstance()->use(shaderProgram);
-
 		
 		shaderProgram->setFloat3("viewPos", Camera::getInstance()->getPosition());
 
 		shaderProgram->setInt("skybox", 10);
-
 		
 		glActiveTexture(GL_TEXTURE0+10);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, Render::getInstance()->getSkyBoxTexture());
@@ -153,4 +153,9 @@ void Node::draw()
 	{
 		(*iter)->draw();
 	}
+}
+
+void Node::genShadowMapping(Shader shader)
+{
+
 }

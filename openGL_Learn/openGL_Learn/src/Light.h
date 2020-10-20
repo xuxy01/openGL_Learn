@@ -28,6 +28,8 @@ public:
 	DirectLight();
 	~DirectLight();
 	void use(Shader* shader);
+
+	glm::vec3 getDirectioin() { return rotation * direction; };
 private:
 	glm::vec3 direction;
 	glm::qua<float> rotation;

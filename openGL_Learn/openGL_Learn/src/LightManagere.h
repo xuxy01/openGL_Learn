@@ -19,6 +19,8 @@ public:
 
 	static LightManager* getInstance();
 
+	Light* getLight(int index);
+
 	void addLight(Light*);
 
 	void use(Shader* shader);

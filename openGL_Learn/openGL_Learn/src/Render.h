@@ -27,8 +27,13 @@ public:
 	void renderScreen();
 	void renderSkyBox();
 	void createCameraUBO();
+	void createDepthFrameBuffer();
+	void genShadowMapping();
 
 	const unsigned int getSkyBoxTexture();
+	const glm::mat4 getLightSpaceMatrix() {
+		return lightSpaceMatrix;
+	};
 
 private:
 
@@ -38,6 +43,11 @@ private:
 	unsigned int textureColorbuffer;
 	unsigned int cubemapTexture;
 	unsigned int cameraUBO;
+	unsigned int depthFBO;
+	unsigned int depthTexture;
+
+	glm::mat4 lightSpaceMatrix;
+
 
 	std::vector<Node*> nodes;
 };

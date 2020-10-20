@@ -66,6 +66,7 @@ public:
 	void setRotation(glm::vec3);
 
 	void draw();
+	void genShadowMapping(Shader shader);
 private:
 
 	glm::vec3 postion;

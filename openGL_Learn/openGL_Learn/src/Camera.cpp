@@ -42,7 +42,6 @@ void Camera::moveRight(float deltaTime)
 {
 
 	float finalSpeed = speed * deltaTime;
-	printf("moveRight %f 11\n", finalSpeed);
 	glm::vec3 cameraFront = rotation * glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	position -= finalSpeed * glm::cross(cameraUp, cameraFront);
@@ -105,7 +104,6 @@ void Camera::rotate(float x, float y)
 
 void Camera::cameraScale(float yoffset)
 {
-	printf("cameraScale %f \n", yoffset);
 	if (scale >= 1.0f && scale <= 45.0f)
 		scale -= yoffset;
 	if (scale <= 1.0f)

@@ -12,7 +12,7 @@ Light::~Light()
 
 DirectLight::DirectLight()
 	:direction(glm::vec3(-1.0f, 0.0f, 0.0f)),
-	rotation(glm::quat(glm::radians(glm::vec3(0.0f, 0.0, 0.0f))))
+	rotation(glm::quat(glm::radians(glm::vec3(0.0f, 0.0, 45.0f))))
 {
 	
 }

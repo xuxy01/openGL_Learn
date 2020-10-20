@@ -75,8 +75,8 @@ void Render::init()
 	createFrameBuffer();
 	createScreenVAO();
 	createSkyBoxVAO();
-
 	createCameraUBO();
+	createDepthFrameBuffer();
 }
 
 void Render::createScreenVAO()
@@ -188,6 +188,9 @@ void Render::createSkyBoxVAO()
 
 void Render::draw()
 {
+	genShadowMapping();
+
+
 	bool bPostProcessing = false;
 	if (bPostProcessing)
 	{
@@ -293,7 +296,7 @@ void Render::createFrameBuffer()
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		std::cout << "ERROR::FRAMEBUFFER::  is not complete!" << std::endl;
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -303,6 +306,67 @@ const unsigned int Render::getSkyBoxTexture()
 {
 	return cubemapTexture;
 }
+
+void Render::createDepthFrameBuffer()
+{
+
+	const GLuint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+	glGenFramebuffers(1, &depthFBO);
+
+	glGenTextures(1, &depthTexture);
+	glBindTexture(GL_TEXTURE_2D, depthTexture);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+	GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, depthFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Render::genShadowMapping()
+{
+	const GLuint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	
+
+
+	Shader shader = Shader("shader/ShadowMappingVS.hlsl", "shader/ShadowMappingFS.hlsl");
+	glm::mat4 lightProjection, lightView;
+	GLfloat near_plane = 1.0f, far_plane = 7.5f;
+	lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	//lightProjection = glm::perspective(45.0f, (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // Note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene.
+	DirectLight* light= (DirectLight*)LightManager::getInstance()->getLight(0);
+	glm::vec3 lightDir = light->getDirectioin();
+	lightView = glm::lookAt(-lightDir, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+	lightSpaceMatrix = lightProjection * lightView;
+	// - now render scene from light's point of view
+	shader.use();
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+
+	glBindFramebuffer(GL_FRAMEBUFFER, depthFBO);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); iter++)
+	{
+		(*iter)->genShadowMapping(shader);
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glViewport(0, 0, 800, 600);
+
+}
+
 
 void Render::addNode(Node* node)
 {
